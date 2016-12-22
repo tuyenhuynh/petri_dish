@@ -60,9 +60,9 @@ public class Game extends GameObject {
     private DangerFactory dangerFactory;
     
     
-    AgarPetriCollision apCollision;
-    PetriDangerCollision pdCollision;
-    PetriPetriCollision ppCollision;
+    AgarPetriCollision agarPetriCollision;
+    PetriDangerCollision petriDangerCollision;
+    PetriPetriCollision petriPetriCollision;
     // All our actor
     private PetriDish player;
     private final java.util.List<PetriDish> spriteList = new ArrayList();
@@ -81,15 +81,17 @@ public class Game extends GameObject {
         playField = new PlayField();
         
         // add background to play field.
-        bg = new ImageBackground(getImage("resources/background.jpg"), TOTAL_WIDTH, TOTAL_HEIGHT);
-        playField.setBackground(bg);      
-        
+        bg = new ImageBackground(getImage("resources/background.jpg"));
+        bg.setClip(0, 0,1080, 720);
         
         PETRI_GROUP = new SpriteGroup("PetriDish");      
-        
         AGAR_GROUP = new SpriteGroup("Agar");
-        
         DANGER_GROUP = new SpriteGroup("Danger");
+        
+        PETRI_GROUP.setBackground(bg);
+        AGAR_GROUP.setBackground(bg);
+        DANGER_GROUP.setBackground(bg);
+
         
         dangerFactory = new DangerFactory(this);
         dangerFactory.generate();
@@ -138,18 +140,20 @@ public class Game extends GameObject {
         }
         
         // add all group to game field
-        playField.addGroup(PETRI_GROUP);
-        playField.addGroup(AGAR_GROUP);
-        playField.addGroup(DANGER_GROUP);
+//        playField.addGroup(PETRI_GROUP);
+//        playField.addGroup(AGAR_GROUP);
+//        playField.addGroup(DANGER_GROUP);
+//        
+        agarPetriCollision = new AgarPetriCollision(this);
+        agarPetriCollision.setCollisionGroup(AGAR_GROUP, PETRI_GROUP);
+        //playField.addCollisionGroup(AGAR_GROUP, PETRI_GROUP, apCollision);
         
-        apCollision = new AgarPetriCollision(this);
-        playField.addCollisionGroup(AGAR_GROUP, PETRI_GROUP, apCollision);
+        petriDangerCollision = new PetriDangerCollision(this);
+        petriDangerCollision.setCollisionGroup(PETRI_GROUP, DANGER_GROUP);
+        //playField.addCollisionGroup(PETRI_GROUP, DANGER_GROUP, pdCollision);
         
-        pdCollision = new PetriDangerCollision(this);
-        playField.addCollisionGroup(PETRI_GROUP, DANGER_GROUP, pdCollision);
-        
-        ppCollision = new PetriPetriCollision(this);
-        ppCollision.setListener(new CollisionListener(){
+        petriPetriCollision = new PetriPetriCollision(this);
+        petriPetriCollision.setListener(new CollisionListener(){
             
             @Override
             public void collided(PetriDish petriDish) {
@@ -170,8 +174,11 @@ public class Game extends GameObject {
                 finish();    
             }
         });
-        playField.addCollisionGroup(PETRI_GROUP, PETRI_GROUP, ppCollision);
-        ppCollision.addDivercantChangeCellListner(new AddEnermyObserver());
+        
+        petriPetriCollision.setCollisionGroup(PETRI_GROUP, PETRI_GROUP);
+        petriPetriCollision.addDivercantChangeCellListner(new AddEnermyObserver());
+        //playField.addCollisionGroup(PETRI_GROUP, PETRI_GROUP, ppCollision);
+        
         
         // font
         font = fontManager.getFont(getImages("resources/font.png", 20, 3),
@@ -182,15 +189,28 @@ public class Game extends GameObject {
 
     @Override
     public void update(long l) {
+        //update collision
+        agarPetriCollision.checkCollision();
+        petriDangerCollision.checkCollision();
+        petriPetriCollision.checkCollision();
+        
+        //update players controllers
+        playerController.update(l);
+        groupAI.update(l);
+        
+        //update field's objects
+        AGAR_GROUP.update(l);
+        PETRI_GROUP.update(l);
+        DANGER_GROUP.update(l);
+        
+        //update background
+        bg.update(l);
         
         if (agar_timer.action(l)) {
             agarFactory.generate();
         }
         
-        playerController.update(l);
-        groupAI.update(l);
-        
-        playField.update(l);
+        //playField.update(l);
         
     }
     
@@ -198,8 +218,19 @@ public class Game extends GameObject {
     @Override
     public void render(Graphics2D gd) {
         // render all characters
-        playField.render(gd);   
+        //playField.render(gd);   
       
+        bg.render(gd);
+        AGAR_GROUP.render(gd);
+        PETRI_GROUP.render(gd);
+        DANGER_GROUP.render(gd);
+        
+        
+        if(player != null){
+            // set center view to player
+            bg.setToCenter(player);
+        }
+        
         // render text
         font.drawString(gd, "PLAYER: " + String.valueOf(player.size()), 10, 10);
         
@@ -207,8 +238,6 @@ public class Game extends GameObject {
             font.drawString(gd, "AI " + String.valueOf(i+1) + ":" + String.valueOf(spriteList.get(i).size()), 10, 10+(i+1)*20);
         }
         
-        // set center view to player
-        bg.setToCenter(player);
     }
     
     /**
