@@ -23,7 +23,6 @@ import java.awt.image.BufferedImage;
  */
 public class Game extends GameObject {
     
-    
     public static int TOTAL_WIDTH = 6000; 
     
     public static int TOTAL_HEIGHT = 6000;
@@ -32,9 +31,12 @@ public class Game extends GameObject {
     
     public static int NUMBER_DANGER = 50;
     
-    public Game(GameEngine gameEngine, GroupAI groupAI) {
-        super(gameEngine); 
-        this.groupAI = groupAI; 
+    private final int mode; 
+    
+    public Game(GameEngine gameEngine, int mode) {
+        super(gameEngine);
+        this.mode = mode; 
+        this.groupAI = new GroupAI(); 
     }
   
     /**
@@ -167,7 +169,7 @@ public class Game extends GameObject {
 
             @Override
             public void gameFinished() {
-                parent.nextGameID = 1;
+                parent.nextGameID = 3;
                 finish();    
             }
         });

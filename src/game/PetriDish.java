@@ -22,7 +22,7 @@ public class PetriDish extends GameSprite {
     private int size;                   // size of petri dish
     private boolean collided;           // petri dish is collied with danger?
     private long collidedMoment;        // save moment when collided
-    
+    private static final int MAX_SIZE = 30; 
     private boolean  isBot; 
     
     /**
@@ -54,7 +54,7 @@ public class PetriDish extends GameSprite {
         if (color != null && icon != null) {
             int iconHeight = icon.getHeight();
             int iconWidth  = icon.getWidth();
-            int h_size = iconHeight + size;
+            int h_size = iconHeight + Math.min(size, MAX_SIZE);
             
             // Get area to re-paint
             BufferedImage bi = new BufferedImage(h_size, h_size, BufferedImage.TYPE_INT_ARGB);
@@ -70,7 +70,7 @@ public class PetriDish extends GameSprite {
             g2d.drawOval(0, 0, h_size, h_size);
 
             // Draw icon of object
-            g2d.drawImage(icon, (iconHeight - iconWidth +size )/2, size/2, null);
+            g2d.drawImage(icon, (iconHeight - iconWidth +Math.min(size, MAX_SIZE) )/2, Math.min(size, MAX_SIZE)/2, null);
             
             this.setImage(bi);
         }
@@ -132,10 +132,10 @@ public class PetriDish extends GameSprite {
     
     public int getRenderedSize(){
         if(icon != null){
-            return size + icon.getHeight();
+            return Math.min(size, MAX_SIZE) + icon.getHeight();
         }else {
             System.out.println("Icon not found"); 
-            return size + 30;
+            return Math.min(size, MAX_SIZE) + 30;
         }
     }
     
