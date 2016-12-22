@@ -79,7 +79,6 @@ public class Game extends GameObject {
     public void initResources() {
         // create play field.
         playField = new PlayField();
-        
         // add background to play field.
         bg = new ImageBackground(getImage("resources/background.jpg"));
         bg.setClip(0, 0,1080, 720);
@@ -88,9 +87,10 @@ public class Game extends GameObject {
         AGAR_GROUP = new SpriteGroup("Agar");
         DANGER_GROUP = new SpriteGroup("Danger");
         
-        PETRI_GROUP.setBackground(bg);
-        AGAR_GROUP.setBackground(bg);
-        DANGER_GROUP.setBackground(bg);
+        playField.setBackground(bg);
+//        PETRI_GROUP.setBackground(bg);
+//        AGAR_GROUP.setBackground(bg);
+//        DANGER_GROUP.setBackground(bg);
 
         
         dangerFactory = new DangerFactory(this);
@@ -140,17 +140,17 @@ public class Game extends GameObject {
         }
         
         // add all group to game field
-//        playField.addGroup(PETRI_GROUP);
-//        playField.addGroup(AGAR_GROUP);
-//        playField.addGroup(DANGER_GROUP);
+        playField.addGroup(PETRI_GROUP);
+        playField.addGroup(AGAR_GROUP);
+        playField.addGroup(DANGER_GROUP);
 //        
         agarPetriCollision = new AgarPetriCollision(this);
-        agarPetriCollision.setCollisionGroup(AGAR_GROUP, PETRI_GROUP);
-        //playField.addCollisionGroup(AGAR_GROUP, PETRI_GROUP, apCollision);
+        //agarPetriCollision.setCollisionGroup(AGAR_GROUP, PETRI_GROUP);
+        playField.addCollisionGroup(AGAR_GROUP, PETRI_GROUP, agarPetriCollision);
         
         petriDangerCollision = new PetriDangerCollision(this);
-        petriDangerCollision.setCollisionGroup(PETRI_GROUP, DANGER_GROUP);
-        //playField.addCollisionGroup(PETRI_GROUP, DANGER_GROUP, pdCollision);
+        //petriDangerCollision.setCollisionGroup(PETRI_GROUP, DANGER_GROUP);
+        playField.addCollisionGroup(PETRI_GROUP, DANGER_GROUP, petriDangerCollision);
         
         petriPetriCollision = new PetriPetriCollision(this);
         petriPetriCollision.setListener(new CollisionListener(){
@@ -177,7 +177,7 @@ public class Game extends GameObject {
         
         petriPetriCollision.setCollisionGroup(PETRI_GROUP, PETRI_GROUP);
         petriPetriCollision.addDivercantChangeCellListner(new AddEnermyObserver());
-        //playField.addCollisionGroup(PETRI_GROUP, PETRI_GROUP, ppCollision);
+        playField.addCollisionGroup(PETRI_GROUP, PETRI_GROUP, petriPetriCollision);
         
         
         // font
@@ -190,18 +190,18 @@ public class Game extends GameObject {
     @Override
     public void update(long l) {
         //update collision
-        agarPetriCollision.checkCollision();
-        petriDangerCollision.checkCollision();
-        petriPetriCollision.checkCollision();
-        
+//        agarPetriCollision.checkCollision();
+//        petriDangerCollision.checkCollision();
+//        petriPetriCollision.checkCollision();
+//        
         //update players controllers
         playerController.update(l);
         groupAI.update(l);
         
-        //update field's objects
-        AGAR_GROUP.update(l);
-        PETRI_GROUP.update(l);
-        DANGER_GROUP.update(l);
+//        //update field's objects
+//        AGAR_GROUP.update(l);
+//        PETRI_GROUP.update(l);
+//        DANGER_GROUP.update(l);
         
         //update background
         bg.update(l);
@@ -210,7 +210,7 @@ public class Game extends GameObject {
             agarFactory.generate();
         }
         
-        //playField.update(l);
+        playField.update(l);
         
     }
     
@@ -218,12 +218,12 @@ public class Game extends GameObject {
     @Override
     public void render(Graphics2D gd) {
         // render all characters
-        //playField.render(gd);   
+        playField.render(gd);   
       
-        bg.render(gd);
-        AGAR_GROUP.render(gd);
-        PETRI_GROUP.render(gd);
-        DANGER_GROUP.render(gd);
+//        bg.render(gd);
+//        AGAR_GROUP.render(gd);
+//        PETRI_GROUP.render(gd);
+//        DANGER_GROUP.render(gd);
         
         
         if(player != null){
