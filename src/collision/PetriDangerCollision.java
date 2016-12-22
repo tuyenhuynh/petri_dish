@@ -29,8 +29,9 @@ public class PetriDangerCollision extends PreciseCollisionGroup{
     public void collided(Sprite sprite, Sprite sprite1) {
         
         PetriDish petriDish = (PetriDish)sprite; 
-//        if(!petriDish.isBot()){
-//        }
+        if(!petriDish.isBot()){
+            
+        }
         ((PetriDish) sprite).collided();
         sprite.setSpeed(-sprite.getHorizontalSpeed(), -sprite.getVerticalSpeed());       
     }

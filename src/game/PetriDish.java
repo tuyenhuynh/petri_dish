@@ -4,8 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import javax.swing.Timer;
+//import java.util.Timer;
 
 /**
  * Petri dish - main hero of game.
@@ -101,7 +105,20 @@ public class PetriDish extends GameSprite {
      * @param amount
      */
     public void growUp(int amount) {
-        size += amount;
+        int delay = 20, time = delay; 
+        
+        for(int i = 0; i < amount ; ++i) {
+            Timer timer = new Timer(time+= delay, null); 
+            timer.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    size+= 1;
+                    timer.stop(); 
+                }
+            }); 
+            timer.start();
+        }
+//        size += amount;
         repaint();
     }
     

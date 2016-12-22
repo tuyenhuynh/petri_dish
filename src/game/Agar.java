@@ -34,7 +34,7 @@ public class Agar extends GameSprite {
             this.setPosition(pos);
             this.setSpeed(0);
         } catch (IOException ex) {
-            Logger.getLogger(Agar.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Agar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

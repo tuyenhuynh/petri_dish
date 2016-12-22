@@ -24,6 +24,15 @@ import main.group.SurroundGroupAI;
  */
 public class Game extends GameObject {
     
+    
+    public static int TOTAL_WIDTH = 6000; 
+    
+    public static int TOTAL_HEIGHT = 6000;
+    
+    public static int NUMBER_ENEMY = 20;
+    
+    public static int NUMBER_DANGER = 50;
+    
     public Game(GameEngine gameEngine, GroupAI groupAI) {
         super(gameEngine); 
         this.groupAI = groupAI; 
@@ -88,10 +97,6 @@ public class Game extends GameObject {
         DANGER_GROUP = new SpriteGroup("Danger");
         
         playField.setBackground(bg);
-//        PETRI_GROUP.setBackground(bg);
-//        AGAR_GROUP.setBackground(bg);
-//        DANGER_GROUP.setBackground(bg);
-
         
         dangerFactory = new DangerFactory(this);
         dangerFactory.generate();
@@ -106,25 +111,20 @@ public class Game extends GameObject {
         boolean added = false; 
         do {
             boolean overlapped = false; 
-            Point point = new Point(random.nextInt(TOTAL_WIDTH - 200), random.nextInt(TOTAL_HEIGHT -200)); 
-            PetriDish bot = new PetriDish(getImage("resources/PRIMITIVE_ANIMAL.png"), true); 
-            bot.setPosition(point);
+            Point point = new Point(random.nextInt(880), random.nextInt(520)); 
+            player = new PetriDish(getImage("resources/PRIMITIVE_PLANT.png"), true); 
+            player.setPosition(point);
             for(Danger danger: dangerFactory.getDangers() ){
-                if(isOverlapped( danger, bot)){
+                if(isOverlapped( danger, player)){
                     overlapped = true; 
                 }
             }
             if(!overlapped) {
-                spriteList.add(bot);
-                PETRI_GROUP.add(bot);
+                PETRI_GROUP.add(player);
+                playerController = new PlayerController(this, player);
                 added = true;
             }
         } while (!added);
-        
-        player = new PetriDish(getImage("resources/PRIMITIVE_PLANT.png"), false);
-        player.setPosition(new Point((random.nextInt(400)), random.nextInt(400)));
-        playerController = new PlayerController(this, player);
-        PETRI_GROUP.add(player);
         
         /*------------------INIT GROUPAI-----------*/
         groupAI.setGame(this);
@@ -145,11 +145,9 @@ public class Game extends GameObject {
         playField.addGroup(DANGER_GROUP);
 //        
         agarPetriCollision = new AgarPetriCollision(this);
-        //agarPetriCollision.setCollisionGroup(AGAR_GROUP, PETRI_GROUP);
         playField.addCollisionGroup(AGAR_GROUP, PETRI_GROUP, agarPetriCollision);
         
         petriDangerCollision = new PetriDangerCollision(this);
-        //petriDangerCollision.setCollisionGroup(PETRI_GROUP, DANGER_GROUP);
         playField.addCollisionGroup(PETRI_GROUP, DANGER_GROUP, petriDangerCollision);
         
         petriPetriCollision = new PetriPetriCollision(this);
@@ -179,7 +177,6 @@ public class Game extends GameObject {
         petriPetriCollision.addDivercantChangeCellListner(new AddEnermyObserver());
         playField.addCollisionGroup(PETRI_GROUP, PETRI_GROUP, petriPetriCollision);
         
-        
         // font
         font = fontManager.getFont(getImages("resources/font.png", 20, 3),
                                    " !            .,0123" +
@@ -188,30 +185,16 @@ public class Game extends GameObject {
     }
 
     @Override
-    public void update(long l) {
-        //update collision
-//        agarPetriCollision.checkCollision();
-//        petriDangerCollision.checkCollision();
-//        petriPetriCollision.checkCollision();
-//        
+    public void update(long l) {  
         //update players controllers
         playerController.update(l);
         groupAI.update(l);
-        
-//        //update field's objects
-//        AGAR_GROUP.update(l);
-//        PETRI_GROUP.update(l);
-//        DANGER_GROUP.update(l);
-        
-        //update background
-        bg.update(l);
         
         if (agar_timer.action(l)) {
             agarFactory.generate();
         }
         
         playField.update(l);
-        
     }
     
     
@@ -219,12 +202,6 @@ public class Game extends GameObject {
     public void render(Graphics2D gd) {
         // render all characters
         playField.render(gd);   
-      
-//        bg.render(gd);
-//        AGAR_GROUP.render(gd);
-//        PETRI_GROUP.render(gd);
-//        DANGER_GROUP.render(gd);
-        
         
         if(player != null){
             // set center view to player
@@ -236,8 +213,7 @@ public class Game extends GameObject {
         
         for (int i = 0; i < spriteList.size(); i++) {
             font.drawString(gd, "AI " + String.valueOf(i+1) + ":" + String.valueOf(spriteList.get(i).size()), 10, 10+(i+1)*20);
-        }
-        
+        }      
     }
     
     /**
@@ -250,14 +226,6 @@ public class Game extends GameObject {
         p.y += bg.getY();
         return p;
     }
-    
-    public static int TOTAL_WIDTH = 6000; 
-    
-    public static int TOTAL_HEIGHT = 6000;
-    
-    public static int NUMBER_ENEMY = 20;
-    
-    public static int NUMBER_DANGER = 100;
     
     /**
      * Game fonts.
