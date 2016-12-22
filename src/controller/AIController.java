@@ -1,6 +1,9 @@
 package controller;
 
 
+import controller.strategy.RunAwayStrategy;
+import controller.strategy.Strategy;
+import controller.strategy.SurroundStrategy;
 import game.Game;
 import game.GameMath;
 import game.PetriDish;
@@ -11,8 +14,15 @@ import java.awt.Point;
  */
 public class AIController extends PetriController {
     
+    private Strategy moveStrategy; 
+    
+    private void setMoveStrategy(Strategy moveStrategy) {
+        this.moveStrategy = moveStrategy; 
+    }
+    
     public AIController(Game game, PetriDish player, PetriDish petri) {
         super(game, petri);
+        this.moveStrategy = new RunAwayStrategy();
         this.player = player;
         int angle = GameMath.angle(petri.getPosition(), player.getPosition());
         petri.setDirection(angle);
@@ -24,13 +34,14 @@ public class AIController extends PetriController {
      */
     @Override
     public void update(long elapsedTime) {
-        Point playerPos = player.getPosition();
-        Point spritePos = petri.getPosition();
-        double dist = GameMath.distance(spritePos, playerPos);
-        if (dist > AIController.MAX_DISTANCE) {
-            int angle = GameMath.angle(petri.getPosition(), player.getPosition());
-            petri.setDirection(angle);
+        if(petri.size() < player.size() + 2) {
+            this.setMoveStrategy(new RunAwayStrategy());
+            
+        }else {
+            this.setMoveStrategy(new SurroundStrategy());
         }
+        int angle = this.moveStrategy.findDirection(player, petri);
+        petri.setDirection(angle);
     }
     
     /**

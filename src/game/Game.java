@@ -16,7 +16,6 @@ import main.group.GroupAI;
 import controller.PlayerController;
 import game.listener.CollisionListener;
 import java.awt.image.BufferedImage;
-import main.group.SurroundGroupAI;
 
 /**
  * Game
@@ -29,7 +28,7 @@ public class Game extends GameObject {
     
     public static int TOTAL_HEIGHT = 6000;
     
-    public static int NUMBER_ENEMY = 20;
+    public static int NUMBER_ENEMY = 30;
     
     public static int NUMBER_DANGER = 50;
     
@@ -112,7 +111,7 @@ public class Game extends GameObject {
         do {
             boolean overlapped = false; 
             Point point = new Point(random.nextInt(880), random.nextInt(520)); 
-            player = new PetriDish(getImage("resources/PRIMITIVE_PLANT.png"), true); 
+            player = new PetriDish(getImage("resources/PRIMITIVE_PLANT.png"), false); 
             player.setPosition(point);
             for(Danger danger: dangerFactory.getDangers() ){
                 if(isOverlapped( danger, player)){

@@ -5,6 +5,7 @@
  */
 package main.group;
 
+import controller.AIController;
 import controller.PetriController;
 import game.Game;
 import game.PetriDish;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author tuyenhuynh
  */
-public abstract class GroupAI {
+public class GroupAI {
     List<PetriController> controllers =new ArrayList<>(); 
     protected Game game; 
     protected PetriDish player; 
@@ -31,7 +32,9 @@ public abstract class GroupAI {
         this.player = player;
     }
 
-    public abstract void addAIController(PetriDish petriDish);
+    public void addAIController(PetriDish petriDish) {
+        controllers.add(new AIController(game, player, petriDish));
+    }
     
     public void removeAIController(PetriDish petriDish) {
         for(PetriController controller: controllers){

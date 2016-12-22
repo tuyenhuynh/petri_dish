@@ -7,7 +7,7 @@ package game;
 
 import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameObject;
-import main.group.SurroundGroupAI;
+import main.group.GroupAI;
 
 /**
  * Class to change screen game: main game and screen lose game
@@ -17,7 +17,7 @@ public class OptionGame extends GameEngine{
      public GameObject getGame(int GameID) {
        switch (GameID) {
           case 0: 
-             return new Game(this, new SurroundGroupAI());
+             return new Game(this, new GroupAI());
           case 1: 
               return new GameFinish(this);
        }

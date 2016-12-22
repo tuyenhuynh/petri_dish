@@ -40,8 +40,6 @@ public class Danger extends GameSprite {
     @Override
     protected void repaint() {
         if (color != null && icon != null) {
-            
-            System.out.println("Controller repaint!");
             // Get area to re-paint
             BufferedImage bi = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
 

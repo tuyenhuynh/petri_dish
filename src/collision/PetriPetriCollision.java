@@ -35,8 +35,8 @@ public class PetriPetriCollision extends BasicCollisionGroup {
     
             /**
      * Check collision between Petri and Petri
-     * @param sprite agar
-     * @param sprite1 petri
+     * @param sprite1
+     * @param sprite2
      */
     @Override
     public void collided(Sprite sprite1, Sprite sprite2) {
@@ -54,7 +54,7 @@ public class PetriPetriCollision extends BasicCollisionGroup {
         if(size2 > size1 && GameMath.distance(c1, c2) < petriDish2.getRenderedSize()/2) {
             petriDish2.growUp(petriDish1.size());
             petriDish1.setActive(false);
-            if(petriDish1.isBot()) {
+            if(petriDish1.isBot()) { 
                 listener.collided(petriDish1);
             }else {
                 listener.gameFinished(); 
