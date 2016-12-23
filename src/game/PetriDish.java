@@ -24,6 +24,12 @@ public class PetriDish extends GameSprite {
     private long collidedMoment;        // save moment when collided
     private static final int MAX_SIZE = 30; 
     private boolean  isBot; 
+    private int botMode; 
+    private static final Random random = new Random();
+    
+    public int getBotMode() {
+        return this.botMode;
+    }
     
     /**
      * Mark to controller do not change the direction.
@@ -38,7 +44,7 @@ public class PetriDish extends GameSprite {
      * @param icon
      * @param isBot
      */
-    public PetriDish(BufferedImage icon, boolean isBot){
+    public PetriDish(BufferedImage icon, boolean isBot, int gameMode){
         collided = false;
         size = 1;
         Random rand=new Random();
@@ -47,6 +53,11 @@ public class PetriDish extends GameSprite {
         this.setPosition(new Point((rand.nextInt(Game.TOTAL_WIDTH-1000)), rand.nextInt(Game.TOTAL_HEIGHT-1000)));
         this.setSpeed(0.1);
         this.isBot = isBot;
+        if(this.isBot && gameMode == 2) {
+            this.botMode = random.nextInt(2) +1 ;
+        }else {
+            this.botMode = 0;
+        }
     }
     
     @Override

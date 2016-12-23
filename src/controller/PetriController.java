@@ -9,6 +9,9 @@ import game.PetriDish;
  */
 public abstract class PetriController {
     
+    PetriDish petri;
+    Game game;
+    
     public PetriController(Game g, PetriDish p) {
         petri = p;
         game = g;
@@ -24,6 +27,4 @@ public abstract class PetriController {
         return this.petri; 
     }
     
-    PetriDish petri;
-    Game game;
 }

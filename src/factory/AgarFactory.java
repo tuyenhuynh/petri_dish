@@ -13,6 +13,7 @@ import java.util.Random;
 public class AgarFactory {
     
     private final int AGAR_CONST = 500;
+    Game game;
     
     /**
      * Constructor.
@@ -27,14 +28,13 @@ public class AgarFactory {
      */
     public void generate() {
         Random r = new Random();
-        
         for (int i = 0; i < AGAR_CONST; i++) {
             Color col = new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256));
             Point p;
             p = new Point(r.nextInt(Game.TOTAL_HEIGHT-200), r.nextInt(Game.TOTAL_HEIGHT-200));
-            game.AGAR_GROUP.add(new Agar(col, p));
+            Agar agar = new Agar(col, p);
+            game.AGAR_GROUP.add(agar);
+            game.getAgarList().add(agar); 
         }
     }
-    
-    Game game;
 }
