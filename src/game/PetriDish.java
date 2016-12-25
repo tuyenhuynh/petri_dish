@@ -117,18 +117,6 @@ public class PetriDish extends GameSprite {
      */
     public void growUp(int amount) {
         int delay = 20, time = delay; 
-        
-//        for(int i = 0; i < amount ; ++i) {
-//            Timer timer = new Timer(time+= delay, null); 
-//            timer.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    size+= 1;
-//                    timer.stop(); 
-//                }
-//            }); 
-//            timer.start();
-//        }
         size += amount;
         repaint();
     }

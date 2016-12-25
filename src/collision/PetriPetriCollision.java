@@ -33,7 +33,7 @@ public class PetriPetriCollision extends BasicCollisionGroup {
         this.listener = listener; 
     }
     
-            /**
+    /**
      * Check collision between Petri and Petri
      * @param sprite1
      * @param sprite2
