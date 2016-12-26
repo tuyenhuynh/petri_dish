@@ -31,9 +31,7 @@ public class Game extends GameObject {
     public static int NUMBER_ENEMY = 30;
     
     public static int NUMBER_DANGER = 50;
-    
-    private final int gameMode; 
-    
+        
     /**
      * Game play field. Where all event and object are scripted.
      */
@@ -79,18 +77,13 @@ public class Game extends GameObject {
     private PlayerController playerController; 
     
     private static final int AGAR_SIZE =  20; 
-    
-    public int getGameMode() {
-        return this.gameMode;
-    }
-    
+        
     public List<Agar> getAgarList() {
         return this.agarList;
     }
     
-    public Game(GameEngine gameEngine, int gameMode) {
+    public Game(GameEngine gameEngine) {
         super(gameEngine);
-        this.gameMode = gameMode; 
         this.groupAI = new GroupAI(); 
     }
     
@@ -122,7 +115,7 @@ public class Game extends GameObject {
         do {
             boolean overlapped = false; 
             Point point = new Point(random.nextInt(880), random.nextInt(520)); 
-            player = new PetriDish(getImage("resources/PRIMITIVE_PLANT.png"), false, gameMode); 
+            player = new PetriDish(getImage("resources/PRIMITIVE_PLANT.png"), false); 
             player.setPosition(point);
             for(Danger danger: dangerFactory.getDangers() ){
                 if(isOverlapped( danger, player)){
@@ -178,7 +171,7 @@ public class Game extends GameObject {
 
             @Override
             public void gameFinished() {
-                parent.nextGameID = 3;
+                parent.nextGameID = 1;
                 finish();    
             }
         });
@@ -252,7 +245,7 @@ public class Game extends GameObject {
             }
             spriteList.remove((PetriDish)e);
             PETRI_GROUP.remove(e);
-            PetriDish e1 = new PetriDish(getImage("resources/PRIMITIVE_ANIMAL.png"), true, gameMode);
+            PetriDish e1 = new PetriDish(getImage("resources/PRIMITIVE_ANIMAL.png"), true);
             spriteList.add(e1);
             PETRI_GROUP.add(e1);
             AIController ai = new AIController(Game.this, player, e1);
@@ -262,7 +255,7 @@ public class Game extends GameObject {
    }
    
    private boolean addNewBot(BufferedImage botImage, Point position){
-        PetriDish bot = new PetriDish(botImage, true, gameMode); 
+        PetriDish bot = new PetriDish(botImage, true); 
         bot.setPosition(position);
         for(PetriDish sprite : spriteList){
             if(sprite.isActive() && isOverlapped(sprite, bot)){
