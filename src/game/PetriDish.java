@@ -128,7 +128,10 @@ public class PetriDish extends GameSprite {
     public int size() {
         return size;
     }
-    
+    /**
+     * Get size to render sprite, in account to the limit of sprite's size.
+     * @return size to render.
+     */
     public int getRenderedSize(){
         if(icon != null){
             return Math.min(size, MAX_SIZE) + icon.getHeight();
@@ -137,7 +140,10 @@ public class PetriDish extends GameSprite {
             return Math.min(size, MAX_SIZE) + 30;
         }
     }
-    
+    /**
+     * Check whether sprite is enemy.
+     * @return true if sprite is enemy, otherwise return false
+     */
     public boolean isBot(){
         return this.isBot;
     }

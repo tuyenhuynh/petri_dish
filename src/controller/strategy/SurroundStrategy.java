@@ -11,10 +11,16 @@ import java.awt.Point;
 
 /**
  *
- * @author tuyenhuynh
+ * @author nghiand
  */
 public class SurroundStrategy implements Strategy{
     
+    /**
+     * Find direction for AI when it has to run away from player
+     * @param player - player
+     * @param petri - AI
+     * @return - angle which defines AI's direction
+     */
     @Override
     public int findDirection(PetriDish player, PetriDish petri) {
         int direction = player.getDirection(); 
@@ -27,6 +33,7 @@ public class SurroundStrategy implements Strategy{
         Point lo = new Point(playerPos.x, playerPos.y);
         Point newPlayerPos = new Point((int)(playerPos.x + dx), (int)(playerPos.y + dy));
         double e = 1e-3;
+        //find target position for AI
         while (Math.abs(dx) > e || Math.abs(dy) > e){
             Point ret = new Point((int)(lo.x + dx / 2), (int)(lo.y + dy / 2));
             double dis1 = GameMath.distance(ret, playerPos);
@@ -41,6 +48,7 @@ public class SurroundStrategy implements Strategy{
                 lo = ret;
             }
         }
+        //define angle using target position
         int angle = GameMath.angle(petri.getPosition(), newPlayerPos);
         return angle;
     }

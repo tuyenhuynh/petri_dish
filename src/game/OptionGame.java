@@ -14,7 +14,8 @@ import main.group.GroupAI;
  * @author dungdunght
  */
 public class OptionGame extends GameEngine{
-     public GameObject getGame(int GameID) {
+    @Override
+    public GameObject getGame(int GameID) {
        switch (GameID) {
           case 0: return new Game(this);
           case 1: return new GameFinish(this);

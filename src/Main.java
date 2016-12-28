@@ -23,6 +23,10 @@ import javax.swing.border.EtchedBorder;
  */
 public class Main  extends JFrame implements ActionListener,Runnable{
     
+    
+    /**
+     * Constructor
+     */
     public Main(){
         super("Agar.io Launcher");
         Box mainBox = Box.createVerticalBox();
@@ -109,6 +113,12 @@ public class Main  extends JFrame implements ActionListener,Runnable{
         setVisible(true);
     }
     
+    
+    /**
+     * Create panel with button
+     * @param text - text of button
+     * @param enabled - is button enabled
+     */
     private JPanel createButton(String text, boolean enabled) {
         JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         pane.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
@@ -127,14 +137,20 @@ public class Main  extends JFrame implements ActionListener,Runnable{
 	new Thread(this).start();
     }
 
+    
+    /**
+     * Implementation of function run from Runnable
+     */
+    @Override
     public void run() {
-        System.out.println("Running"); 
         GameLoader gameLoader = new GameLoader();
         gameLoader.setup(new OptionGame(), new Dimension(1080, 720), false);
         gameLoader.start();
     }
-
-
+    
+    /**
+     * Main endpoint of program
+     */
     public static void main(String[] args) {
             new Main();
     }   

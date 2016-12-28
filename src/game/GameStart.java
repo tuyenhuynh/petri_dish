@@ -26,7 +26,8 @@ public class GameStart extends GameObject {
         super(parent);
         
     } 
-     public void update(long elapsedTime) {
+    @Override
+    public void update(long elapsedTime) {
         background.update(elapsedTime);
         if (this.keyPressed(KeyEvent.VK_1)) {
           parent.nextGameID = 1;

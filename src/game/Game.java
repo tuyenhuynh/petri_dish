@@ -62,14 +62,17 @@ public class Game extends GameObject {
     public SpriteGroup DANGER_GROUP;
     private DangerFactory dangerFactory;
     
-    
+    //Collision groups
     AgarPetriCollision agarPetriCollision;
     PetriDangerCollision petriDangerCollision;
     PetriPetriCollision petriPetriCollision;
+    
     // All our actor
     private PetriDish player;
     private final List<PetriDish> spriteList = new ArrayList();
     final List<Agar> agarList = new ArrayList();
+    
+    //Timer to generate agars
     Timer agar_timer = new Timer(10000);
     
     private GroupAI groupAI; 
@@ -95,20 +98,21 @@ public class Game extends GameObject {
         bg = new ImageBackground(getImage("resources/background.jpg"));
         bg.setClip(0, 0,1080, 720);
         
+        //create groups of sprites
         PETRI_GROUP = new SpriteGroup("PetriDish");      
         AGAR_GROUP = new SpriteGroup("Agar");
         DANGER_GROUP = new SpriteGroup("Danger");
         
         playField.setBackground(bg);
         
+        //generate dangers
         dangerFactory = new DangerFactory(this);
         dangerFactory.generate();
         
-        // generate agar
+        // generate agars
         agarFactory = new AgarFactory(this);
         agarFactory.generate();        
         
-        //TODO: check overlapped between  player and dangers;
         // create player with random on screen 640*480
         Random random = new Random(); 
         boolean added = false; 
@@ -234,6 +238,7 @@ public class Game extends GameObject {
      * Game fonts.
      */
     GameFont font;
+    
    //receive signal about petri was killed 
    private class AddEnermyObserver implements PetriPetriCollisionListener{
        @Override
@@ -254,7 +259,13 @@ public class Game extends GameObject {
         }
    }
    
-   private boolean addNewBot(BufferedImage botImage, Point position){
+   /**
+     * Utility function to add new enemy to game
+     * @param botImage - icon of enemy
+     * @param position - initial position of enemy
+     * @return result of adding
+     */
+    private boolean addNewBot(BufferedImage botImage, Point position){
         PetriDish bot = new PetriDish(botImage, true); 
         bot.setPosition(position);
         for(PetriDish sprite : spriteList){
@@ -273,7 +284,13 @@ public class Game extends GameObject {
         return true;
     }
    
-   private boolean isOverlapped(Sprite s1, Sprite s2) {
+    /**
+     * Utility function, checks whether sprite s1 and sprite s2 are overlapped
+     * @param s1 - first sprite
+     * @param s2 - second sprite
+     * @return true if s1 and s2 are overlapped, otherwise return false
+     */
+    private boolean isOverlapped(Sprite s1, Sprite s2) {
         int gap = 20;
         Point p1 = null, p2 = null; 
         int size1 = 0, size2 = 0; 

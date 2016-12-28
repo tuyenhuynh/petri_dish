@@ -37,6 +37,9 @@ public class Danger extends GameSprite {
         }
     }
     
+    /**
+     * Repaint danger
+     */
     @Override
     protected void repaint() {
         if (color != null && icon != null) {
@@ -53,6 +56,10 @@ public class Danger extends GameSprite {
         }
     }
     
+    /**
+     * Get danger's size
+     * @return danger's size
+     */
     public int getSize(){
         return this.size; 
     }

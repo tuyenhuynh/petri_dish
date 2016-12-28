@@ -21,10 +21,12 @@ import javax.imageio.ImageIO;
  */
 public class GameFinish extends GameObject {
     private ImageBackground background; 
-     public GameFinish(GameEngine parent) {
+    public GameFinish(GameEngine parent) {
        super(parent);
-     } 
-     public void update(long elapsedTime) {
+    } 
+     
+    @Override
+    public void update(long elapsedTime) {
         background.update(elapsedTime);
         if (click()) {
           parent.nextGameID = 0;

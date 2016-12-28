@@ -38,6 +38,11 @@ public class DangerFactory {
         }
     }
     
+    
+    /**
+     * Get dangers list.
+     * @return list of dangers
+     */
     public List<Danger> getDangers(){
         return this.dangers;
     }
