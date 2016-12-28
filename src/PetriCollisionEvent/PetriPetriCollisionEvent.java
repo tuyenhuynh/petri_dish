@@ -5,7 +5,6 @@
  */
 package PetriCollisionEvent;
 
-import game.PetriDish;
 import java.util.EventObject;
 
 /**

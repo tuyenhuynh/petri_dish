@@ -2,14 +2,9 @@ package game;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-import javax.swing.Timer;
-//import java.util.Timer;
 
 /**
  * Petri dish - main hero of game.

@@ -8,7 +8,6 @@ import game.Agar;
 import game.Game;
 import game.GameMath;
 import game.PetriDish;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;

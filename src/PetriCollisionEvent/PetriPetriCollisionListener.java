@@ -6,7 +6,6 @@
 package PetriCollisionEvent;
 
 import com.golden.gamedev.object.Sprite;
-import game.PetriDish;
 import java.util.EventListener;
 
 /**
