@@ -1,3 +1,5 @@
+package game;
+
 import com.golden.gamedev.GameLoader;
 import game.OptionGame;
 import java.awt.Dimension;
