@@ -1,13 +1,9 @@
 package game;
 
-import PetriCollisionEvent.PetriPetriCollisionListener;
+import petri.collision.event.PetriPetriCollisionListener;
 import factory.DangerFactory;
 import factory.AgarFactory;
 import collision.*;
-import com.golden.gamedev.GameEngine;
-import com.golden.gamedev.GameObject;
-import com.golden.gamedev.object.*;
-import com.golden.gamedev.object.background.*;
 import java.awt.*;
 import controller.*;
 import java.util.List;
@@ -17,12 +13,18 @@ import main.group.GroupAI;
 import controller.PlayerController;
 import game.listener.CollisionListener;
 import java.awt.image.BufferedImage;
+import petricup.lib.Timer;
+import petricup.lib.GameEngine;
+import petricup.lib.ImageBackground;
+import petricup.lib.PlayField;
+import petricup.lib.SpriteGroup;
+import petricup.lib.SystemFont;
 
 /**
  * Game
  * @author anhcx
  */
-public class Game extends GameObject {
+public class Game extends petricup.lib.GameObject {
     
     public static int TOTAL_WIDTH = 6000; 
     
@@ -40,7 +42,7 @@ public class Game extends GameObject {
     /**
      * Background. 
      */
-    private Background bg;
+    private ImageBackground bg;
     
     /** 
      * Group of sprite - petri.
@@ -184,15 +186,12 @@ public class Game extends GameObject {
         petriPetriCollision.addDivercantChangeCellListner(new AddEnermyObserver());
         playField.addCollisionGroup(PETRI_GROUP, PETRI_GROUP, petriPetriCollision);
         
-        // font
-        font = fontManager.getFont(getImages("resources/font.png", 20, 3),
-                                   " !            .,0123" +
-                                   "456789:   -? ABCDEFG" +
-                                   "HIJKLMNOPQRSTUVWXYZ ");
+        font = new SystemFont("arial",0, 25, Color.blue);
+
     }
 
     @Override
-    public void update(long l) {  
+    public void update(long l) {
         //update players controllers
         playerController.update(l);
         groupAI.update(l);
@@ -220,7 +219,7 @@ public class Game extends GameObject {
         
         for (int i = 0; i < spriteList.size(); i++) {
             font.drawString(gd, "AI " + String.valueOf(i+1) + ":" + String.valueOf(spriteList.get(i).size()), 10, 10+(i+1)*20);
-        }      
+        }  
     }
     
     /**
@@ -237,12 +236,12 @@ public class Game extends GameObject {
     /**
      * Game fonts.
      */
-    GameFont font;
+    SystemFont font;
     
    //receive signal about petri was killed 
    private class AddEnermyObserver implements PetriPetriCollisionListener{
        @Override
-        public void DieEnermy(Sprite e) {
+        public void DieEnermy(petricup.lib.GameSprite e) {
             
             if (e==player){
                 parent.nextGameID = 1;
@@ -290,7 +289,7 @@ public class Game extends GameObject {
      * @param s2 - second sprite
      * @return true if s1 and s2 are overlapped, otherwise return false
      */
-    private boolean isOverlapped(Sprite s1, Sprite s2) {
+    private boolean isOverlapped(GameSprite s1, GameSprite s2) {
         int gap = 20;
         Point p1 = null, p2 = null; 
         int size1 = 0, size2 = 0; 

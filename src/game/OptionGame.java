@@ -1,8 +1,8 @@
 package game;
 
-import com.golden.gamedev.GameEngine;
-import com.golden.gamedev.GameObject;
 import main.group.GroupAI;
+import petricup.lib.GameEngine;
+import petricup.lib.GameObject;
 
 /**
  * Class to change screen game: main game and screen lose game

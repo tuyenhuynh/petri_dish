@@ -44,7 +44,7 @@ public class GroupAI {
         for(PetriController controller: controllers){
             if(controller.getPetriDish() == petriDish){
                 controllers.remove(controller);
-                break; 
+                break;
             }
         } 
     }

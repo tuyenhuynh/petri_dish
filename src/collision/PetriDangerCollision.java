@@ -1,9 +1,9 @@
 package collision;
 
-import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.collision.PreciseCollisionGroup;
 import game.Game;
 import game.PetriDish;
+import petricup.lib.GameSprite;
+import petricup.lib.PreciseCollisionGroup;
 
 /**
  *
@@ -26,7 +26,7 @@ public class PetriDangerCollision extends PreciseCollisionGroup{
      * @param sprite1 Danger
      */
     @Override
-    public void collided(Sprite sprite, Sprite sprite1) {
+    public void collided(GameSprite sprite, GameSprite sprite1) {
         
         PetriDish petriDish = (PetriDish)sprite; 
         if(!petriDish.isBot()){

@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PetriCollisionEvent;
+package petri.collision.event;
 
-import com.golden.gamedev.object.Sprite;
 import java.util.EventListener;
+import petricup.lib.GameSprite;
 
 /**
  *
  * @author dungdunght
  */
 public interface PetriPetriCollisionListener extends EventListener{
-    public void DieEnermy(Sprite e);
+    public void DieEnermy(GameSprite e);
 }

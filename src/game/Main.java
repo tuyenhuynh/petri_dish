@@ -1,7 +1,5 @@
 package game;
 
-import com.golden.gamedev.GameLoader;
-import game.OptionGame;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -14,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+import petricup.lib.GameLoader;
 
 /**
  * Main Class

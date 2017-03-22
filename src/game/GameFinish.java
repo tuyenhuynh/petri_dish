@@ -1,20 +1,19 @@
 package game;
 
-import com.golden.gamedev.GameEngine;
-import com.golden.gamedev.GameObject;
-import com.golden.gamedev.object.background.ImageBackground;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import petricup.lib.GameEngine;
+import petricup.lib.ImageBackground;
 
 /**
  * Screen losing game and next to new game 
  * @author dungdunght
  */
-public class GameFinish extends GameObject {
+public class GameFinish extends petricup.lib.GameObject {
     private ImageBackground background; 
     public GameFinish(GameEngine parent) {
        super(parent);

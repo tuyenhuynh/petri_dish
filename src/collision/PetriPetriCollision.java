@@ -1,14 +1,14 @@
 package collision;
 
-import PetriCollisionEvent.PetriPetriCollisionListener;
-import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.collision.BasicCollisionGroup;
+import petri.collision.event.PetriPetriCollisionListener;
 import game.Game;
 import game.GameMath;
 import game.PetriDish;
 import game.listener.CollisionListener;
 import java.awt.Point;
 import java.util.ArrayList;
+import petricup.lib.BasicCollisionGroup;
+import petricup.lib.GameSprite;
 
 /**
  *  Class to check Petri-petri collision
@@ -33,7 +33,7 @@ public class PetriPetriCollision extends BasicCollisionGroup {
      * @param sprite2
      */
     @Override
-    public void collided(Sprite sprite1, Sprite sprite2) {
+    public void collided(GameSprite sprite1, GameSprite sprite2) {
             
         int size1=((PetriDish)sprite1).getRenderedSize();
         int size2=((PetriDish)sprite2).getRenderedSize();
@@ -69,7 +69,7 @@ public class PetriPetriCollision extends BasicCollisionGroup {
      public void addDivercantChangeCellListner(PetriPetriCollisionListener l) {
             PetriPetriCollisisonListnerList.add(l);
         }
-      protected void fireLossEnermy(Sprite e) {
+      protected void fireLossEnermy(GameSprite e) {
         for (Object listener : PetriPetriCollisisonListnerList)
         {        
             ((PetriPetriCollisionListener)listener).DieEnermy(e);

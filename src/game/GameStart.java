@@ -5,9 +5,6 @@
  */
 package game;
 
-import com.golden.gamedev.GameEngine;
-import com.golden.gamedev.GameObject;
-import com.golden.gamedev.object.background.ImageBackground;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.awt.Font;
@@ -15,6 +12,9 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import petricup.lib.GameEngine;
+import petricup.lib.GameObject;
+import petricup.lib.ImageBackground;
 
 /**
  *

@@ -1,9 +1,9 @@
 package collision;
 
-import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.collision.BasicCollisionGroup;
 import game.Game;
 import game.PetriDish;
+import petricup.lib.BasicCollisionGroup;
+import petricup.lib.GameSprite;
 
 /**
  * Class to check Agar - Petri collision, and perform by logic game.
@@ -26,7 +26,7 @@ public class AgarPetriCollision extends BasicCollisionGroup{
      * @param sprite1 petri
      */
     @Override
-    public void collided(Sprite sprite, Sprite sprite1) {
+    public void collided(GameSprite sprite, GameSprite sprite1) {
         // remove agar from game field.
         sprite.setActive(false);
         
