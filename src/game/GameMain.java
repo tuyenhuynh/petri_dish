@@ -24,7 +24,7 @@ import petricup.lib.SystemFont;
  * Game
  * @author anhcx
  */
-public class Game extends petricup.lib.GameObject {
+public class GameMain extends petricup.lib.GameObject {
     
     public static int TOTAL_WIDTH = 6000; 
     

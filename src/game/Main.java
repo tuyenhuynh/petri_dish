@@ -141,7 +141,7 @@ public class Main  extends JFrame implements ActionListener,Runnable{
     @Override
     public void run() {
         GameLoader gameLoader = new GameLoader();
-        gameLoader.setup(new OptionGame(), new Dimension(1080, 720), false);
+        gameLoader.setup(new MultiScreenGame(), new Dimension(1080, 720), false);
         gameLoader.start();
     }
     
