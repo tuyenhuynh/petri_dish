@@ -2,12 +2,12 @@ package game;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import petricup.lib.GameEngine;
 import petricup.lib.ImageBackground;
+import java.awt.Graphics2D;
 
 /**
  * Screen losing game and next to new game 
@@ -31,7 +31,7 @@ public class GameFinish extends petricup.lib.GameObject {
     public void initResources() {
         try{
             background = new ImageBackground(ImageIO.read(new File("resources/background.jpg")));
-            background.setClip(0, 0, Game.TOTAL_HEIGHT, Game.TOTAL_WIDTH);
+            background.setClip(0, 0, GameMain.TOTAL_HEIGHT, GameMain.TOTAL_WIDTH);
         }catch(IOException ex) {
             ex.printStackTrace();
         }

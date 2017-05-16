@@ -19,6 +19,7 @@ import petricup.lib.ImageBackground;
 import petricup.lib.PlayField;
 import petricup.lib.SpriteGroup;
 import petricup.lib.SystemFont;
+import java.awt.Graphics2D;
 
 /**
  * Game
@@ -87,7 +88,7 @@ public class GameMain extends petricup.lib.GameObject {
         return this.agarList;
     }
     
-    public Game(GameEngine gameEngine) {
+    public GameMain(GameEngine gameEngine) {
         super(gameEngine);
         this.groupAI = new GroupAI(); 
     }
@@ -202,12 +203,11 @@ public class GameMain extends petricup.lib.GameObject {
         
         playField.update(l);
     }
-    
-    
+        
     @Override
     public void render(Graphics2D gd) {
         // render all characters
-        playField.render(gd);   
+        playField.render(gd);
         
         if(player != null){
             // set center view to player
@@ -252,7 +252,7 @@ public class GameMain extends petricup.lib.GameObject {
             PetriDish e1 = new PetriDish(getImage("resources/PRIMITIVE_ANIMAL.png"), true);
             spriteList.add(e1);
             PETRI_GROUP.add(e1);
-            AIController ai = new AIController(Game.this, player, e1);
+            AIController ai = new AIController(GameMain.this, player, e1);
             groupAI.removeAIController((PetriDish)e); 
             groupAI.addAIController(e1);
         }

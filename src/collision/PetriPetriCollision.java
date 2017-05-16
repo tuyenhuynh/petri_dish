@@ -1,7 +1,7 @@
 package collision;
 
 import petri.collision.event.PetriPetriCollisionListener;
-import game.Game;
+import game.GameMain;
 import game.GameMath;
 import game.PetriDish;
 import game.listener.CollisionListener;
@@ -16,7 +16,7 @@ import petricup.lib.GameSprite;
  */
 public class PetriPetriCollision extends BasicCollisionGroup {
     
-    public PetriPetriCollision(Game g) {
+    public PetriPetriCollision(GameMain g) {
         this.pixelPerfectCollision = true;
         owner = g;
     }
@@ -75,5 +75,5 @@ public class PetriPetriCollision extends BasicCollisionGroup {
             ((PetriPetriCollisionListener)listener).DieEnermy(e);
         }        
     }
-    Game owner;
+    GameMain owner;
 }

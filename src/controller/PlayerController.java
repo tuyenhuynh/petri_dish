@@ -1,6 +1,6 @@
 package controller;
 
-import game.Game;
+import game.GameMain;
 import game.GameMath;
 import game.PetriDish;
 
@@ -15,7 +15,7 @@ public class PlayerController extends PetriController {
      * @param g game
      * @param p petri dish
      */
-    public PlayerController(Game g, PetriDish p) {
+    public PlayerController(GameMain g, PetriDish p) {
         super(g, p);
     }
     

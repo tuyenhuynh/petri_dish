@@ -1,6 +1,6 @@
 package controller;
 
-import game.Game;
+import game.GameMain;
 import game.PetriDish;
 
 /**
@@ -10,9 +10,9 @@ import game.PetriDish;
 public abstract class PetriController {
     
     PetriDish petri;
-    Game game;
+    GameMain game;
     
-    public PetriController(Game g, PetriDish p) {
+    public PetriController(GameMain g, PetriDish p) {
         petri = p;
         game = g;
     }

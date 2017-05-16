@@ -1,6 +1,6 @@
 package collision;
 
-import game.Game;
+import game.GameMain;
 import game.PetriDish;
 import petricup.lib.BasicCollisionGroup;
 import petricup.lib.GameSprite;
@@ -15,7 +15,7 @@ public class AgarPetriCollision extends BasicCollisionGroup{
      * Constructor with a owner
      * @param g game - owner
      */
-    public AgarPetriCollision(Game g) {
+    public AgarPetriCollision(GameMain g) {
         this.pixelPerfectCollision = true;
         owner = g;
     }
@@ -29,11 +29,10 @@ public class AgarPetriCollision extends BasicCollisionGroup{
     public void collided(GameSprite sprite, GameSprite sprite1) {
         // remove agar from game field.
         sprite.setActive(false);
-        
         // make petri bigger
         ((PetriDish)sprite1).growUp(1);
     }
     
-    Game owner;
+    GameMain owner;
     
 }

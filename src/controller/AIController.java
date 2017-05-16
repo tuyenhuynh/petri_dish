@@ -5,7 +5,7 @@ import controller.strategy.RunAwayStrategy;
 import controller.strategy.Strategy;
 import controller.strategy.SurroundStrategy;
 import game.Agar;
-import game.Game;
+import game.GameMain;
 import game.GameMath;
 import game.PetriDish;
 import java.awt.event.ActionEvent;
@@ -34,7 +34,7 @@ public class AIController extends PetriController {
         this.moveStrategy = moveStrategy; 
     }
     
-    public AIController(Game game, PetriDish player, PetriDish petri) {
+    public AIController(GameMain game, PetriDish player, PetriDish petri) {
         super(game, petri);
         this.moveStrategy = new RunAwayStrategy();
         this.player = player;
@@ -49,7 +49,8 @@ public class AIController extends PetriController {
     @Override
     public void update(long elapsedTime) {
         if(petri.size() < player.size() + 2) {
-            this.setMoveStrategy(new RunAwayStrategy());            
+            //this.setMoveStrategy(new RunAwayStrategy()); 
+            this.setMoveStrategy(new SurroundStrategy());
         }else {
             this.setMoveStrategy(new SurroundStrategy());
         }

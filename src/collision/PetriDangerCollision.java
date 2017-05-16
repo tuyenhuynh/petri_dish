@@ -1,21 +1,21 @@
 package collision;
 
-import game.Game;
+import game.GameMain;
 import game.PetriDish;
 import petricup.lib.GameSprite;
-import petricup.lib.PreciseCollisionGroup;
+import petricup.lib.BasicCollisionGroup;
 
 /**
  *
  * @author anhcx
  */
-public class PetriDangerCollision extends PreciseCollisionGroup{
+public class PetriDangerCollision extends BasicCollisionGroup{
 
     /**
      *
      * @param g
      */
-    public PetriDangerCollision(Game g) {
+    public PetriDangerCollision(GameMain g) {
         this.pixelPerfectCollision = true;
         owner = g;
     }
@@ -36,6 +36,6 @@ public class PetriDangerCollision extends PreciseCollisionGroup{
         sprite.setSpeed(-sprite.getHorizontalSpeed(), -sprite.getVerticalSpeed());       
     }
     
-    Game owner;
+    GameMain owner;
     
 }

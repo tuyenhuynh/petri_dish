@@ -2,7 +2,7 @@ package main.group;
 
 import controller.AIController;
 import controller.PetriController;
-import game.Game;
+import game.GameMain;
 import game.PetriDish;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class GroupAI {
     List<PetriController> controllers =new ArrayList<>(); 
-    protected Game game; 
+    protected GameMain game; 
     protected PetriDish player; 
     
-    public void setGame(Game game) {
+    public void setGame(GameMain game) {
         this.game = game;
     }
 

@@ -8,14 +8,15 @@ import petricup.lib.GameObject;
  * @author dungdunght
  */
 public class MultiScreenGame extends GameEngine {
-    static public Skin gameSkin;
     public void create () {
         
     }
 
+    /*
     public void render () {
         super.render();
     }
+*/
 
     public void dispose () {
         
