@@ -5,9 +5,6 @@
  */
 package petricup.lib;
 
-import game.PetriDish;
-import java.awt.image.BufferedImage;
-
 /**
  *
  * @author tuyenhuynh

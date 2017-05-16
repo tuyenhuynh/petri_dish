@@ -1,43 +1,66 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package petricup.lib;
 
-import com.golden.gamedev.object.Sprite;
+import java.util.List;
 
 /**
- *
- * @author tuyenhuynh
+ * Группа для поиска пересечений между спрайтами
  */
-public class BasicCollisionGroup extends com.golden.gamedev.object.collision.BasicCollisionGroup {
-    
+public class BasicCollisionGroup {
+    /**
+     * Конструирует новую группу
+     */
     public BasicCollisionGroup() {
-        super();
+            
     }
     
-    @Override
-    public void collided(Sprite sprite1, Sprite sprite2) {
-        if (m_sg1 == null || m_sg2 == null)
-            return;
-            //System.out.println("a");
-        GameSprite gs1 = m_sg1.get(sprite1);
-        GameSprite gs2 = m_sg2.get(sprite2);    
-        this.collided(gs1, gs2);
+    /**
+     * Запускает проверку коллизий для спрайтов
+     */
+    public void checkCollision() {
+        if (m_group1 != null && m_group2 != null) {
+            List<GameSprite> sprites1 = m_group1.toList();
+            List<GameSprite> sprites2 = m_group2.toList();
+            for (int i = 0; i < sprites1.size(); i++) {
+                for (int j = 0; j < sprites2.size(); j++) {
+                    GameSprite s1 = sprites1.get(i);
+                    GameSprite s2 = sprites2.get(j);                    
+                    if (s1 != s2) {
+                        if (s1.getCollisionShape().collidesWith(s2.getCollisionShape())) {
+                            this.collided(s1, s2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * Устанавливает группы для происка пересечений 
+     * @param s1 первая группа
+     * @param s2 вторая группа
+     */
+    public void setCollisionGroup(SpriteGroup s1, SpriteGroup s2) {
+        m_group1 = s1;
+        m_group2 = s2;
+    }
+        
+    
+    /**
+     * Обрабатывает коллизии.
+     * @param first первый спрайт
+     * @param second второй спрайт
+     */
+    public void collided(GameSprite first, GameSprite second) {
         
     }
     
-    public void collided(GameSprite sprite1, GameSprite sprite2) {
-        
-    }
+    /**
+     * Первая группа для определения пересечений
+     */
+    SpriteGroup m_group1;
     
-    public void setCollisionGroup(SpriteGroup sg1, SpriteGroup sg2){
-        super.setCollisionGroup(sg1.m_spriteGroup, sg2.m_spriteGroup);
-        m_sg1 = sg1;
-        m_sg2 = sg2;
-    }
-    
-    SpriteGroup m_sg1;
-    SpriteGroup m_sg2;
+    /**
+     * Вторая группа для определения пересечений
+     */
+    SpriteGroup m_group2;    
 }

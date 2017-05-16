@@ -1,12 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package petricup.lib;
 
-public class Timer{
-    com.golden.gamedev.object.Timer m_timer;
-    public Timer(int delay) {
-        m_timer = new com.golden.gamedev.object.Timer(delay);
-    }
+/**
+ *
+ * @author tuyenhuynh
+ */
+public class Timer {
     
-    public boolean action(long time) {
-        return m_timer.action(time);
-    }
 }

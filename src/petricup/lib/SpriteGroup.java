@@ -1,42 +1,80 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package petricup.lib;
 
-import com.golden.gamedev.object.Sprite;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 /**
- *
- * @author tuyenhuynh
+ * Группа спрайтов
  */
-public class SpriteGroup{
-    com.golden.gamedev.object.SpriteGroup m_spriteGroup;
-    
+public class SpriteGroup {
+    /**
+     * Создает новую именованную группу спрайтов
+     * @param string название группы
+     */
     public SpriteGroup(String string) {
-        m_spriteGroup = new com.golden.gamedev.object.SpriteGroup(string);
+        m_name = string;
+        m_list = new ArrayList<>();
     }
     
-    public void add(GameSprite sprite){
-        m_spriteGroup.add(sprite.m_sprite);
-        m_map.put(sprite.m_sprite, sprite);
+    /**
+     * Добавляет новый спрайт в группу
+     * @param s спрайт
+     */
+    public void add(GameSprite s) {
+        m_list.add(s);
     }
     
-    public void remove(GameSprite sprite){
-        m_spriteGroup.remove(sprite.m_sprite);
-        m_map.remove(sprite.m_sprite);
+    /**
+     * Удаляет группу из спрайтов
+     * @param s спрайт
+     */
+    public void remove(GameSprite s) {
+        m_list.remove(s);
     }
     
-    GameSprite get(com.golden.gamedev.object.Sprite sp){
-        return m_map.get(sp);
+    /**
+     * Устанавливает фон для группы спрайтов
+     * @param bg фон для группы
+     */
+    public void setBackground(ImageBackground bg) {
+        
     }
     
+    /**
+     * Обновляет состояние группы спрайтов
+     * @param elapsed прошедшее время в мс
+     */
+    public void update(long elapsed) {
+        m_list.stream().forEach((s) -> {
+            s.update(elapsed);
+        });
+    }
     
-    Map<Sprite, GameSprite> m_map = new HashMap<>();
+    /**
+     * Рендерит группу в контексте
+     * @param g графический контекст
+     */
+    public void render(Graphics2D g) {
+        m_list.stream().forEach((s) -> {
+            s.render(g);
+        });
+    }
+    
+    /**
+     * Возвращает список из всех спрайтов
+     * @return список спрайтов
+     */
+    public List<GameSprite> toList() {
+        return m_list;
+    }
+    
+    /**
+     * Имя спрайта
+     */
+    String m_name;
+    
+    /**
+     * Список спрайтов
+     */
+    ArrayList<GameSprite> m_list;
 }
