@@ -18,7 +18,7 @@ public class SystemFont{
         m_font = new com.golden.gamedev.object.font.SystemFont(new Font(fontName, attrs, size), clr);
     }
     
-    public void drawString(java.awt.Graphics2D g, String data, int x, int y) {
-        m_font.drawString(g, data, x, y);
+    public void drawString(Graphics2D g, String data, int x, int y) {
+        m_font.drawString(g.get(), data, x, y);
     }   
 }

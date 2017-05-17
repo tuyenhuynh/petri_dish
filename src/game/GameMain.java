@@ -19,7 +19,7 @@ import petricup.lib.ImageBackground;
 import petricup.lib.PlayField;
 import petricup.lib.SpriteGroup;
 import petricup.lib.SystemFont;
-import java.awt.Graphics2D;
+import petricup.lib.Graphics2D;
 
 /**
  * Game
@@ -220,6 +220,12 @@ public class GameMain extends petricup.lib.GameObject {
         for (int i = 0; i < spriteList.size(); i++) {
             font.drawString(gd, "AI " + String.valueOf(i+1) + ":" + String.valueOf(spriteList.get(i).size()), 10, 10+(i+1)*20);
         }  
+    }
+    
+    @Override
+    public void render(java.awt.Graphics2D g2d){
+        Graphics2D g2 = new Graphics2D(g2d);
+        render(g2);
     }
     
     /**

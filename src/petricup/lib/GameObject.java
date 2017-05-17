@@ -29,7 +29,6 @@ public class GameObject extends com.golden.gamedev.GameObject{
     
     @Override
     public void render(java.awt.Graphics2D g2) {
-        Graphics2D g2d = new Graphics2D(g2);
     }
     
     public void render(Graphics2D g2d){

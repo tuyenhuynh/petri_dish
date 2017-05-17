@@ -31,8 +31,8 @@ public class ImageBackground{
         m_imageBackground.setClip(i, i1, i2, i3);
     }
        
-    public void render(java.awt.Graphics2D g2d){
-        m_imageBackground.render(g2d);
+    public void render(Graphics2D g2d){
+        m_imageBackground.render(g2d.get());
     }
     
     public double getX(){
