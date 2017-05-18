@@ -45,7 +45,8 @@ public class PetriDish extends GameSprite {
         Random rand=new Random();
         this.setIcon(icon);
         this.setColor(Color.green);
-        this.setPosition(new Point((rand.nextInt(GameMain.TOTAL_WIDTH-1000)), rand.nextInt(GameMain.TOTAL_HEIGHT-1000)));
+        this.setPosition(new Point((rand.nextInt(800)), rand.nextInt(600)));
+        //this.setPosition(new Point((rand.nextInt(GameMain.TOTAL_WIDTH-1000)), rand.nextInt(GameMain.TOTAL_HEIGHT-1000)));
         this.setSpeed(0.1);
         this.isBot = isBot;
         if(this.isBot) {

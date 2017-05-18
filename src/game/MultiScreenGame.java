@@ -22,6 +22,10 @@ public class MultiScreenGame extends GameEngine {
         
     }
     
+    public MultiScreenGame(){
+        super();
+    }
+    
     @Override
     public GameObject getGame(int GameID) {
        switch (GameID) {

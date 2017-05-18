@@ -48,6 +48,9 @@ public class SpriteGroup {
         m_list.stream().forEach((s) -> {
             s.update(elapsed);
         });
+        for (int i = m_list.size() - 1; i >= 0; i--)
+            if (!m_list.get(i).isActive())
+                remove(m_list.get(i)); 
     }
     
     /**

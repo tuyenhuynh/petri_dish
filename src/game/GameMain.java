@@ -4,6 +4,7 @@ import petri.collision.event.PetriPetriCollisionListener;
 import factory.DangerFactory;
 import factory.AgarFactory;
 import collision.*;
+import com.badlogic.gdx.Gdx;
 import java.awt.*;
 import controller.*;
 import java.util.List;
@@ -13,6 +14,9 @@ import main.group.GroupAI;
 import controller.PlayerController;
 import game.listener.CollisionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import petricup.lib.Timer;
 import petricup.lib.GameEngine;
 import petricup.lib.ImageBackground;
@@ -73,7 +77,7 @@ public class GameMain extends petricup.lib.GameObject {
     // All our actor
     private PetriDish player;
     private final List<PetriDish> spriteList = new ArrayList();
-    final List<Agar> agarList = new ArrayList();
+    final List<Agar> agarList;
     
     //Timer to generate agars
     Timer agar_timer = new Timer(10000);
@@ -91,104 +95,113 @@ public class GameMain extends petricup.lib.GameObject {
     public GameMain(GameEngine gameEngine) {
         super(gameEngine);
         this.groupAI = new GroupAI(); 
+        this.agarList = new ArrayList();
     }
     
     @Override
     public void initResources() {
-        // create play field.
-        playField = new PlayField();
-        // add background to play field.
-        bg = new ImageBackground(getImage("resources/background.jpg"));
-        bg.setClip(0, 0,1080, 720);
-        
-        //create groups of sprites
-        PETRI_GROUP = new SpriteGroup("PetriDish");      
-        AGAR_GROUP = new SpriteGroup("Agar");
-        DANGER_GROUP = new SpriteGroup("Danger");
-        
-        playField.setBackground(bg);
-        
-        //generate dangers
-        dangerFactory = new DangerFactory(this);
-        dangerFactory.generate();
-        
-        // generate agars
-        agarFactory = new AgarFactory(this);
-        agarFactory.generate();        
-        
-        // create player with random on screen 640*480
-        Random random = new Random(); 
-        boolean added = false; 
-        do {
-            boolean overlapped = false; 
-            Point point = new Point(random.nextInt(880), random.nextInt(520)); 
-            player = new PetriDish(getImage("resources/PRIMITIVE_PLANT.png"), false); 
-            player.setPosition(point);
-            for(Danger danger: dangerFactory.getDangers() ){
-                if(isOverlapped( danger, player)){
-                    overlapped = true; 
-                }
-            }
-            if(!overlapped) {
-                PETRI_GROUP.add(player);
-                playerController = new PlayerController(this, player);
-                added = true;
-            }
-        } while (!added);
-        
-        /*------------------INIT GROUPAI-----------*/
-        groupAI.setGame(this);
-        groupAI.setPlayer(player);
-        
-        //Generate ai objects 
-        for(int i = 0; i < NUMBER_ENEMY; i++) {
-            boolean _added = true; 
+        try{
+            // create play field.
+            playField = new PlayField();
+            // add background to play field.
+            bg = new ImageBackground(ImageIO.read(new File("resources/background.jpg")));
+            bg.setClip(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            bg.setTotalClip(GameMain.TOTAL_WIDTH, GameMain.TOTAL_HEIGHT);
+
+            //create groups of sprites
+            PETRI_GROUP = new SpriteGroup("PetriDish");      
+            AGAR_GROUP = new SpriteGroup("Agar");
+            DANGER_GROUP = new SpriteGroup("Danger");
+
+            playField.setBackground(bg);
+
+            //generate dangers
+            dangerFactory = new DangerFactory(this);
+            dangerFactory.generate();
+
+            // generate agars
+            agarFactory = new AgarFactory(this);
+            agarFactory.generate();        
+
+            // create player with random on screen 640*480
+            Random random = new Random(); 
+            boolean added = false; 
             do {
-                Point point = new Point(random.nextInt(TOTAL_WIDTH - 200), random.nextInt(TOTAL_HEIGHT -200)); 
-                _added = addNewBot(getImage("resources/PRIMITIVE_ANIMAL.png"), point);    
-            } while (!_added);
-        }
-        
-        // add all group to game field
-        playField.addGroup(PETRI_GROUP);
-        playField.addGroup(AGAR_GROUP);
-        playField.addGroup(DANGER_GROUP);
-//        
-        agarPetriCollision = new AgarPetriCollision(this);
-        playField.addCollisionGroup(AGAR_GROUP, PETRI_GROUP, agarPetriCollision);
-        
-        petriDangerCollision = new PetriDangerCollision(this);
-        playField.addCollisionGroup(PETRI_GROUP, DANGER_GROUP, petriDangerCollision);
-        
-        petriPetriCollision = new PetriPetriCollision(this);
-        petriPetriCollision.setListener(new CollisionListener(){
-            
-            @Override
-            public void collided(PetriDish petriDish) {
-                spriteList.remove(petriDish);
-                PETRI_GROUP.remove(petriDish);
-                groupAI.removeAIController(petriDish);
-                boolean added = true; 
-                Random random = new Random(); 
+                boolean overlapped = false; 
+                Point point = new Point(random.nextInt(880), random.nextInt(520)); 
+                player = new PetriDish(ImageIO.read(new File("resources/PRIMITIVE_PLANT.png")), false); 
+                player.setPosition(point);
+                for(Danger danger: dangerFactory.getDangers() ){
+                    if(isOverlapped( danger, player)){
+                        overlapped = true; 
+                    }
+                }
+                if(!overlapped) {
+                    PETRI_GROUP.add(player);
+                    playerController = new PlayerController(this, player);
+                    added = true;
+                }
+            } while (!added);
+
+            /*------------------INIT GROUPAI-----------*/
+            groupAI.setGame(this);
+            groupAI.setPlayer(player);
+
+            //Generate ai objects 
+            for(int i = 0; i < NUMBER_ENEMY; i++) {
+                boolean _added = true; 
                 do {
                     Point point = new Point(random.nextInt(TOTAL_WIDTH - 200), random.nextInt(TOTAL_HEIGHT -200)); 
-                    added = addNewBot(getImage("resources/PRIMITIVE_ANIMAL.png"), point);    
-                } while (!added); 
+                    _added = addNewBot(ImageIO.read(new File("resources/PRIMITIVE_ANIMAL.png")), point);    
+                } while (!_added);
             }
 
-            @Override
-            public void gameFinished() {
-                parent.nextGameID = 1;
-                finish();    
-            }
-        });
-        
-        petriPetriCollision.setCollisionGroup(PETRI_GROUP, PETRI_GROUP);
-        petriPetriCollision.addDivercantChangeCellListner(new AddEnermyObserver());
-        playField.addCollisionGroup(PETRI_GROUP, PETRI_GROUP, petriPetriCollision);
-        
-        font = new SystemFont("arial",0, 25, Color.blue);
+            // add all group to game field
+            playField.addGroup(PETRI_GROUP);
+            playField.addGroup(AGAR_GROUP);
+            playField.addGroup(DANGER_GROUP);
+    //        
+            agarPetriCollision = new AgarPetriCollision(this);
+            playField.addCollisionGroup(AGAR_GROUP, PETRI_GROUP, agarPetriCollision);
 
+            petriDangerCollision = new PetriDangerCollision(this);
+            playField.addCollisionGroup(PETRI_GROUP, DANGER_GROUP, petriDangerCollision);
+
+            petriPetriCollision = new PetriPetriCollision(this);
+            petriPetriCollision.setListener(new CollisionListener(){
+
+                @Override
+                public void collided(PetriDish petriDish) {
+                    spriteList.remove(petriDish);
+                    PETRI_GROUP.remove(petriDish);
+                    groupAI.removeAIController(petriDish);
+                    boolean added = true; 
+                    Random random = new Random();
+                    try{
+                        do {
+                            Point point = new Point(random.nextInt(TOTAL_WIDTH - 200), random.nextInt(TOTAL_HEIGHT -200)); 
+                            added = addNewBot(ImageIO.read(new File("resources/PRIMITIVE_ANIMAL.png")), point);    
+                        } while (!added); 
+                    } catch (IOException e){
+                        System.out.println(e);
+                    }
+                }
+
+                @Override
+                public void gameFinished() {
+                    parent.nextGameID = 1;
+                    finish();
+                }
+            });
+
+            petriPetriCollision.setCollisionGroup(PETRI_GROUP, PETRI_GROUP);
+            petriPetriCollision.addDivercantChangeCellListner(new AddEnermyObserver());
+            playField.addCollisionGroup(PETRI_GROUP, PETRI_GROUP, petriPetriCollision);
+
+            font = new SystemFont("arial",0, 25, Color.blue);
+        } catch (IOException e){
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -205,7 +218,7 @@ public class GameMain extends petricup.lib.GameObject {
     }
         
     @Override
-    public void render(Graphics2D gd) {
+    public void renderInContext(Graphics2D gd) {
         // render all characters
         playField.render(gd);
         
@@ -220,12 +233,6 @@ public class GameMain extends petricup.lib.GameObject {
         for (int i = 0; i < spriteList.size(); i++) {
             font.drawString(gd, "AI " + String.valueOf(i+1) + ":" + String.valueOf(spriteList.get(i).size()), 10, 10+(i+1)*20);
         }  
-    }
-    
-    @Override
-    public void render(java.awt.Graphics2D g2d){
-        Graphics2D g2 = new Graphics2D(g2d);
-        render(g2);
     }
     
     /**
@@ -255,12 +262,16 @@ public class GameMain extends petricup.lib.GameObject {
             }
             spriteList.remove((PetriDish)e);
             PETRI_GROUP.remove(e);
-            PetriDish e1 = new PetriDish(getImage("resources/PRIMITIVE_ANIMAL.png"), true);
-            spriteList.add(e1);
-            PETRI_GROUP.add(e1);
-            AIController ai = new AIController(GameMain.this, player, e1);
-            groupAI.removeAIController((PetriDish)e); 
-            groupAI.addAIController(e1);
+            try{
+                PetriDish e1 = new PetriDish(ImageIO.read(new File("resources/PRIMITIVE_ANIMAL.png")), true);
+                spriteList.add(e1);
+                PETRI_GROUP.add(e1);
+                AIController ai = new AIController(GameMain.this, player, e1);
+                groupAI.removeAIController((PetriDish)e); 
+                groupAI.addAIController(e1);
+            } catch (IOException ioe){
+                System.out.println(ioe);
+            }
         }
    }
    
@@ -329,5 +340,4 @@ public class GameMain extends petricup.lib.GameObject {
     }
    
 }
-
 

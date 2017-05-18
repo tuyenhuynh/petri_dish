@@ -1,5 +1,6 @@
 package game;
 
+import com.badlogic.gdx.Gdx;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
@@ -8,15 +9,19 @@ import javax.imageio.ImageIO;
 import petricup.lib.GameEngine;
 import petricup.lib.ImageBackground;
 import petricup.lib.Graphics2D;
+import petricup.lib.SystemFont;
 
 /**
  * Screen losing game and next to new game 
  * @author dungdunght
  */
 public class GameFinish extends petricup.lib.GameObject {
-    private ImageBackground background; 
+    private ImageBackground background;
+    SystemFont font;
+    
     public GameFinish(GameEngine parent) {
-       super(parent);
+        super(parent);
+        font = new SystemFont("arial", 0, 20, Color.red);
     } 
      
     @Override
@@ -27,27 +32,22 @@ public class GameFinish extends petricup.lib.GameObject {
           finish();
         }
     }
+    
     @Override
     public void initResources() {
         try{
             background = new ImageBackground(ImageIO.read(new File("resources/background.jpg")));
-            background.setClip(0, 0, GameMain.TOTAL_HEIGHT, GameMain.TOTAL_WIDTH);
+            background.setClip(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            background.setTotalClip(GameMain.TOTAL_WIDTH, GameMain.TOTAL_HEIGHT);
         }catch(IOException ex) {
             ex.printStackTrace();
         }
     }
-    @Override
-    public void render(Graphics2D gd) {
-        background.render(gd);
-        gd.setFont(new Font("Arial", Font.BOLD, 20));
-        gd.setColor(Color.RED);
-        gd.drawString("YOU LOSE !CLICK TO SCREEN TO START NEW GAME" , 100,100 );
-    }
     
     @Override
-    public void render(java.awt.Graphics2D g2d){
-        Graphics2D g2 = new Graphics2D(g2d);
-        render(g2);       
+    public void renderInContext(Graphics2D gd) {
+        background.render(gd);
+        font.drawString(gd, "YOU LOSE !CLICK TO SCREEN TO START NEW GAME", 100, 100);
     }
 }
 

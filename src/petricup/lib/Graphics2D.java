@@ -38,9 +38,7 @@ public class Graphics2D {
     public SpriteBatch getBatch() {
         return m_batch;
     }
-    
-    
-    
+        
     /**
      * Батч для рисования
      */

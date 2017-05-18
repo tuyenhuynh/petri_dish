@@ -17,7 +17,7 @@ import petricup.lib.GameSprite;
 public class PetriPetriCollision extends BasicCollisionGroup {
     
     public PetriPetriCollision(GameMain g) {
-        this.pixelPerfectCollision = true;
+        super();
         owner = g;
     }
     

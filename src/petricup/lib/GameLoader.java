@@ -22,21 +22,21 @@ public class GameLoader {
      * @param windowSize размер экрана
      * @param fullscreen играть в фуллскрин?
      */
-    public void setup(GameEngine game, Dimension windowSize, boolean fullscreen) {
+    public void setup(GameEngine gameEngine, Dimension windowSize, boolean fullscreen) {
         m_config.width = windowSize.width;
         m_config.height = windowSize.height;
         m_config.fullscreen = fullscreen;
         m_config.foregroundFPS = 60;
         m_config.resizable = false;
         
-        m_game = game;
+        m_gameengine = gameEngine;
     }
     
     /**
      * Запускает игру, блокируя дальнейшее исполнение потока
      */
     public void start() {
-        m_app = new LwjglApplication(m_game, m_config);
+        m_app = new LwjglApplication(m_gameengine.m_game, m_config);
     }    
     
     
@@ -53,5 +53,5 @@ public class GameLoader {
     /**
      * Игра, которая будет исполняться в приложении
      */
-    GameEngine m_game;
+    GameEngine m_gameengine;
 }

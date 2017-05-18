@@ -6,6 +6,7 @@
 package petricup.lib;
 
 import com.badlogic.gdx.graphics.Texture;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import petricup.lib.collision.Ellipse;
@@ -13,13 +14,13 @@ import petricup.lib.collision.Ellipse;
 /**
  * Класс спрайта
  */
-public class GameSprite {
+public abstract class GameSprite {
     
     /**
      * Создает спрайт по умолчанию
      */
     public GameSprite() {
-        
+        m_active = true;
     }
     
     /**
@@ -79,7 +80,6 @@ public class GameSprite {
                 (float)m_x, 
                 (float)(m_y - m_texture.getHeight())
             );
- 
         }
     }
     
@@ -218,6 +218,84 @@ public class GameSprite {
         }
     }
     
+    public void setActive(boolean active) {
+        m_active = active;
+    }
+    
+    public boolean isActive(){
+        return m_active;
+    }
+    
+    public void setSpeed(double vx, double vy) {
+        this.setHorizontalSpeed(vx);
+        this.setVerticalSpeed(vy);
+    }
+    
+    public Point getPosition(){
+        return new Point((int)this.getX(), (int)this.getY());
+    }
+    
+    /**
+     * Set direction to object.
+     * @param angle angle
+     */
+    public abstract void setDirection(int angle);
+
+    /**
+    * Get direction of object
+     * @return direction (angle)
+     */
+    public int getDirection() {
+        return angle;
+    }
+    
+    /**
+     * Set speed to object.
+     * @param speed speed
+     */
+    public abstract void setSpeed(double speed);
+    
+    /**
+     * Get speed of object.
+     * @return speed of object.
+     */
+    public double getSpeed() {
+        return speed;
+    }
+    
+    /**
+     * Set color to object.
+     * @param color color
+     */
+    public void setColor(Color color) {
+        this.color = color;
+        repaint();
+    }
+
+    /**
+     * Set icon to object.
+     * @param icon icon 
+     */
+    public void setIcon(BufferedImage icon) {
+        this.icon = icon;
+        repaint();
+    }
+
+    /**
+     * Draw appearance of sprite. 
+     */
+    protected void repaint() {
+        
+    }
+    
+    /**
+     * Set position to object.
+     * @param position position
+     */
+    public void setPosition(Point position) {
+        this.setX(position.x);
+        this.setY(position.y);
+    }
     
     /**
      * Текстура
@@ -251,5 +329,27 @@ public class GameSprite {
     /**
      * Вертикальная скорость спрайта
      */
-    double m_vertical_speed = 0;    
+    double m_vertical_speed = 0;
+    
+    protected int angle = 0;
+    
+    protected double speed = 0;
+    
+    /**
+     * Color of sprite.
+     * This color will be fill as a background of icon.
+     */
+    protected Color color = null;
+    
+    /**
+     * Icon of sprite.
+     */
+    protected BufferedImage icon = null;    
+    
+    /**
+     * Graphic.
+     */
+    protected java.awt.Graphics2D g2d;
+    
+    public boolean m_active;
 }
