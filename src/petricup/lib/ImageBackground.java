@@ -42,4 +42,7 @@ public class ImageBackground{
     public double getY(){
         return m_imageBackground.getY();
     }
+
+    public void setTotalClip(int TOTAL_WIDTH, int TOTAL_HEIGHT) {
+    }
 }

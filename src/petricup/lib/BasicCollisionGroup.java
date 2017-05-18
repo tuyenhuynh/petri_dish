@@ -15,6 +15,7 @@ public class BasicCollisionGroup extends com.golden.gamedev.object.collision.Bas
     
     public BasicCollisionGroup() {
         super();
+        this.pixelPerfectCollision = true;
     }
     
     @Override

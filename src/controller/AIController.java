@@ -49,8 +49,8 @@ public class AIController extends PetriController {
     @Override
     public void update(long elapsedTime) {
         if(petri.size() < player.size() + 2) {
-            //this.setMoveStrategy(new RunAwayStrategy()); 
-            this.setMoveStrategy(new SurroundStrategy());
+            this.setMoveStrategy(new RunAwayStrategy()); 
+            //this.setMoveStrategy(new SurroundStrategy());
         }else {
             this.setMoveStrategy(new SurroundStrategy());
         }

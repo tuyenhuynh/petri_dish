@@ -16,7 +16,7 @@ public class PetriDangerCollision extends BasicCollisionGroup{
      * @param g
      */
     public PetriDangerCollision(GameMain g) {
-        this.pixelPerfectCollision = true;
+        super();
         owner = g;
     }
     

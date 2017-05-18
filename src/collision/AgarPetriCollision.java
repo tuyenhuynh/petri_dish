@@ -16,7 +16,7 @@ public class AgarPetriCollision extends BasicCollisionGroup{
      * @param g game - owner
      */
     public AgarPetriCollision(GameMain g) {
-        this.pixelPerfectCollision = true;
+        super();
         owner = g;
     }
     

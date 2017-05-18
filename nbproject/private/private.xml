@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/nghiand/Documents/agario/game/petri_dish/src/game/GameFinish.java</file>
+            <file>file:/Users/nghiand/Documents/agario/game/petri_dish/src/petricup/lib/GameLoader.java</file>
+            <file>file:/Users/nghiand/Documents/agario/game/petri_dish/src/game/GameMain.java</file>
+            <file>file:/Users/nghiand/Documents/agario/game/petri_dish/src/game/Main.java</file>
+            <file>file:/Users/nghiand/Documents/agario/game/petri_dish/src/petricup/lib/GameObject.java</file>
+            <file>file:/Users/nghiand/Documents/agario/game/petri_dish/src/game/PetriDish.java</file>
+            <file>file:/Users/nghiand/Documents/agario/game/petri_dish/src/game/MultiScreenGame.java</file>
+        </group>
     </open-files>
 </project-private>
