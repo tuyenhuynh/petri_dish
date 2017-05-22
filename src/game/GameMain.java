@@ -4,7 +4,6 @@ import petri.collision.event.PetriPetriCollisionListener;
 import factory.DangerFactory;
 import factory.AgarFactory;
 import collision.*;
-import com.badlogic.gdx.Gdx;
 import java.awt.*;
 import controller.*;
 import java.util.List;
@@ -105,7 +104,7 @@ public class GameMain extends petricup.lib.GameObject {
             playField = new PlayField();
             // add background to play field.
             bg = new ImageBackground(ImageIO.read(new File("resources/background.jpg")));
-            bg.setClip(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            bg.setClip(0, 0, GameMain.dimensions().width, GameMain.dimensions().height);
             bg.setTotalClip(GameMain.TOTAL_WIDTH, GameMain.TOTAL_HEIGHT);
 
             //create groups of sprites
@@ -339,5 +338,12 @@ public class GameMain extends petricup.lib.GameObject {
         return overlapped;        
     }
    
+    /**
+     * Возвращает размеры окна для изображения
+     * @return 
+     */
+    static public Dimension dimensions() {
+        return new Dimension(1080, 720);
+    }
 }
 
