@@ -23,10 +23,11 @@ import petricup.lib.PlayField;
 import petricup.lib.SpriteGroup;
 import petricup.lib.SystemFont;
 import petricup.lib.Graphics2D;
+import utils.LocalizationUtil;
 
+ 
 /**
- * Game
- * @author anhcx
+ * Main screen of game.
  */
 public class GameMain extends petricup.lib.GameObject {
     
@@ -221,10 +222,10 @@ public class GameMain extends petricup.lib.GameObject {
         }
         
         // render text
-        font.drawString(gd, "PLAYER: " + String.valueOf(player.size()), 10, 10);
+        font.drawString(gd, LocalizationUtil.getLocalizationStr("player") + ": " + String.valueOf(player.size()), 10, 10);
         
         for (int i = 0; i < spriteList.size(); i++) {
-            font.drawString(gd, "AI " + String.valueOf(i+1) + ":" + String.valueOf(spriteList.get(i).size()), 10, 10+(i+1)*20);
+            font.drawString(gd, LocalizationUtil.getLocalizationStr("ai") + String.valueOf(i+1) + ":" + String.valueOf(spriteList.get(i).size()), 10, 10+(i+1)*20);
         }  
     }
     

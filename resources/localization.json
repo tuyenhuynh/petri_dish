@@ -1,0 +1,12 @@
+{
+	"en": {
+		"player": "Player",
+		"ai": "AI",
+		"lost": "YOU LOSE !CLICK TO SCREEN TO START NEW GAME"
+	},
+	"ru": {
+		"player": "Игрок",
+		"ai": "ИИ",
+		"lost": "Вы проиграли! Нажмите на экран чтобы начать игру заново"
+	}
+}

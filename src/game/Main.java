@@ -8,11 +8,13 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import petricup.lib.GameLoader;
+import utils.LocalizationUtil;
 
 /**
  * Main Class
@@ -20,7 +22,7 @@ import petricup.lib.GameLoader;
  */
 public class Main  extends JFrame implements ActionListener,Runnable{
     
-    
+    JComboBox langList;
     /**
      * Constructor
      */
@@ -98,7 +100,15 @@ public class Main  extends JFrame implements ActionListener,Runnable{
 	label.setFont(new Font("Verdana", Font.PLAIN, 13));
 	mainBox.add(label);
        
-        // Tutorial 4
+        String[] langStrings = { "Ru", "En" };
+
+        langList = new JComboBox(langStrings);
+        langList.setSelectedIndex(0);
+        langList.addActionListener(this);
+
+        
+        mainBox.add(langList);
+        
         mainBox.add(createButton("Play", true));
 
         setContentPane(mainBox);
@@ -131,15 +141,21 @@ public class Main  extends JFrame implements ActionListener,Runnable{
     }
     
     public void actionPerformed(ActionEvent e) {
-	new Thread(this).start();
+        
+        if(e.getSource().getClass() == JButton.class) {
+            String lang = (String)langList.getSelectedItem();
+            LocalizationUtil.setLang(lang);
+            new Thread(this).start();
+        } 
+        
     }
-
     
     /**
      * Implementation of function run from Runnable
      */
     @Override
     public void run() {
+        LocalizationUtil.getLang();
         GameLoader gameLoader = new GameLoader();
         gameLoader.setup(new MultiScreenGame(), new Dimension(1080, 720), false);
         gameLoader.start();

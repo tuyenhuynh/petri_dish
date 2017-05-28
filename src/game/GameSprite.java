@@ -1,12 +1,5 @@
 package game;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
-/**
- * Bridge from GTGE sprite and this game 's sprite.
- * @author anhcx
- */
+        
 public class GameSprite extends petricup.lib.GameSprite {
     
     /**

@@ -3,10 +3,6 @@ package game;
 import petricup.lib.GameEngine;
 import petricup.lib.GameObject;
 
-/**
- * Class to change screen game: main game and screen lose game
- * @author dungdunght
- */
 public class MultiScreenGame extends GameEngine {
     public void create () {
         

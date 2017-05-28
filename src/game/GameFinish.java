@@ -1,7 +1,6 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -9,11 +8,8 @@ import petricup.lib.GameEngine;
 import petricup.lib.ImageBackground;
 import petricup.lib.Graphics2D;
 import petricup.lib.SystemFont;
+import utils.LocalizationUtil;
 
-/**
- * Screen losing game and next to new game 
- * @author dungdunght
- */
 public class GameFinish extends petricup.lib.GameObject {
     private ImageBackground background;
     SystemFont font;
@@ -45,7 +41,7 @@ public class GameFinish extends petricup.lib.GameObject {
     @Override
     public void renderInContext(Graphics2D gd){
         background.render(gd);
-        font.drawString(gd, "YOU LOSE !CLICK TO SCREEN TO START NEW GAME", 100, 100);
+        font.drawString(gd, LocalizationUtil.getLocalizationStr("lost"), 100, 100);
     }
 }
 
